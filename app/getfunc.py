@@ -3,20 +3,18 @@ import sqlite3
 import sys
 import pytz, datetime
 
-local = pytz.timezone("Europe/Moscow")
-
 
 
 def timetoutc(mytime):
-
+    local = pytz.timezone("Pacific/Truk")
     naive = datetime.datetime.strptime(mytime, "%Y %m %d %H:%M:%S")
     local_dt = local.localize(naive)
-    utc_dt = local_dt.astimezone(pytz.utc)
+    #utc_dt = local_dt.astimezone(pytz.utc)
 
     return local_dt.strftime("%Y %m %d %H:%M:%S")
 
 def getinfo():
-  conn = sqlite3.connect('/home/zen/git/smarthome/mydatabase.db')
+  conn = sqlite3.connect('/home/pi/git/Web/mydatabase.db')
   cursor = conn.cursor()
 
   sql = "SELECT * FROM tempdata"
