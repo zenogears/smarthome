@@ -3,17 +3,12 @@ import sqlite3
 import sys
 import pytz, datetime
 
-local = pytz.timezone("Europe/Moscow")
-
-
-
 def timetoutc(mytime):
-
-    naive = datetime.datetime.strptime(mytime, "%Y %m %d %H:%M:%S")
-    local_dt = local.localize(naive)
-    utc_dt = local_dt.astimezone(pytz.utc)
-
-    return local_dt.strftime("%Y %m %d %H:%M:%S")
+    UTC_OFFSET_TIMEDELTA = datetime.datetime.now() - datetime.datetime.utcnow()
+    local_datetime = datetime.datetime.strptime(mytime, "%Y %m %d %H:%M:%S")
+    result_utc_datetime = local_datetime + UTC_OFFSET_TIMEDELTA
+    
+    return result_utc_datetime.strftime("%Y %m %d %H:%M:%S")
 
 def getinfo():
   conn = sqlite3.connect('/home/zen/git/smarthome/mydatabase.db')
