@@ -1,0 +1,340 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"call",
+				"call_screen"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"call_",
+				"renpy.call_screen"
+			],
+			[
+				"sklad",
+				"sklad_garbage_0_3"
+			],
+			[
+				"ca",
+				"call_screen"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "run.py",
+			"settings":
+			{
+				"buffer_size": 79,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"RenPy",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"RenPy",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 431.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/zen/git/smarthome"
+	],
+	"file_history":
+	[
+		"/home/zen/RenPy/vault-69/game/gen/def_create_Player.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-fighters.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-extras.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-skills.rpy",
+		"/home/zen/RenPy/vault-69/game/classes/Classes_CHAR.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/test_battle.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/sprites.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-display.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-schema.rpy",
+		"/home/zen/RenPy/vault-69/game/gui.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-battlefield.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-events.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/example-items.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/extension.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-ui.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-items.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/assets.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/engine-wargame.rpy",
+		"/home/zen/RenPy/vault-69/game/gen/gen_locationslabel.rpy",
+		"/home/zen/RenPy/vault-69/game/Battle/matrices.rpy",
+		"/home/zen/RenPy/vault-69/game/options.rpy",
+		"/home/zen/RenPy/vault-69/game/Map/Levels.rpy",
+		"/home/zen/RenPy/vault-69/game/screens/journal.rpy",
+		"/home/zen/RenPy/vault-69/game/screens/mail.rpy",
+		"/home/zen/RenPy/vault-69/game/screens/persacon.rpy",
+		"/home/zen/RenPy/vault-69/game/screens/InfoPC.rpy",
+		"/home/zen/RenPy/vault-69/game/screens/pipboy.rpy",
+		"/home/zen/RenPy/vault-69/game/screens.rpy",
+		"/home/zen/RenPy/vault-69/game/gen/gen_locations.rpy",
+		"/home/zen/RenPy/vault-69/game/Map/anticheet.rpy",
+		"/home/zen/RenPy/vault-69/game/styles.rpy",
+		"/home/zen/RenPy/vault-69/game/characters/characters.rpy",
+		"/mnt/oldhome/RenPy/vault-69/game/screens/gen/gen_locationslabel.rpyc",
+		"/home/zen/RenPy/vault-69/game/screens/StatsScreen.rpy",
+		"/home/zen/RenPy/vault-69/game/characters.rpy",
+		"/home/zen/RenPy/vault-69/game/Map/map.rpy",
+		"/home/zen/RenPy/vault-69/game/gen_locationslabel.rpy",
+		"/home/zen/RenPy/vault-69/game/StatsScreen.rpy",
+		"/home/zen/RenPy/vault-69/game/def_Move.rpy",
+		"/home/zen/RenPy/Vault 69/game/StatsScreen.rpy",
+		"/home/zen/RenPy/Vault 69/game/handyman.rpy",
+		"/home/zen/RenPy/Vault 69/game/def_Move.rpy",
+		"/home/zen/RenPy/Vault 69/game/Map/Levels.rpy",
+		"/home/zen/RenPy/Vault 69/game/journal.rpy",
+		"/home/zen/RenPy/Vault 69/game/gen_locationslabel.rpy",
+		"/home/zen/RenPy/Vault 69/game/Classes_CHAR.rpy",
+		"/home/zen/RenPy/Vault 69/game/options.rpy",
+		"/home/zen/RenPy/Vault 69/game/script.rpy",
+		"/home/zen/RenPy/Vault 69/game/gen_items.rpy",
+		"/home/zen/RenPy/Vault 69/game/gen_locations.rpy",
+		"/home/zen/RenPy/Vault 69/game/def_create_Player.rpy",
+		"/home/zen/RenPy/Vault 69/game/persacon.rpy",
+		"/home/zen/RenPy/Vault 69/game/screens.rpy",
+		"/home/zen/RenPy/Vault 69/game/Map/minigames_level1.rpy",
+		"/home/zen/RenPy/Vault 69/game/styles.rpy",
+		"/home/zen/RenPy/Vault 69/game/Classes_ITEMS.rpy",
+		"/home/zen/RenPy/Vault 69/game/def_Reset_Script.rpy",
+		"/home/zen/RenPy/Vault 69/game/characters.rpy",
+		"/home/zen/RenPy/Vault 69/game/gui.rpy",
+		"/home/zen/RenPy/vault69.sublime-project",
+		"/home/zen/RenPy/GuRo/game/achievements.rpy",
+		"/home/zen/RenPy/GuRo/game/def_customScreens.rpy",
+		"/home/zen/RenPy/GuRo/game/Classes_char.rpy",
+		"/home/zen/RenPy/GuRo/game/Gen_locations.rpy",
+		"/home/zen/RenPy/GuRo/game/phone.rpy",
+		"/home/zen/RenPy/GuRo/game/Gen_quests.rpy",
+		"/home/zen/RenPy/GuRo/game/characters.rpy",
+		"/home/zen/RenPy/GuRo/game/events/Phone_Events.rpy",
+		"/home/zen/RenPy/GuRo/game/script.rpy",
+		"/home/zen/RenPy/GuRo/game/stats.rpy",
+		"/home/zen/RenPy/GuRo/game/def_move.rpy",
+		"/home/zen/RenPy/GuRo/game/screens.rpy",
+		"/home/zen/RenPy/GuRo/game/events/BasicEvents.rpy",
+		"/home/zen/RenPy/GuRo/game/options.rpy",
+		"/home/zen/RenPy/GuRo/game/about.rpy",
+		"/home/zen/RenPy/GuRo/game/Classes_Items.rpy",
+		"/home/zen/RenPy/GuRo/game/Gen_player.rpy",
+		"/home/zen/RenPy/GuRo/game/Gen_Items.rpy",
+		"/home/zen/RenPy/GuRo/game/def_Studing.rpy",
+		"/home/zen/RenPy/GuRo/game/events/FirstSteps.rpy",
+		"/home/zen/RenPy/GuRo/game/Interaction.rpy",
+		"/home/zen/RenPy/GuRo/game/def_time.rpy",
+		"/home/zen/RenPy/GuRo/game/styles.rpy",
+		"/home/zen/RenPy/GuRo/game/def_weather.rpy",
+		"/home/zen/RenPy/Guro.sublime-project"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "run.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 79,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 67.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 140.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "RenPy",
+	"project": "smarthome.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 234.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
