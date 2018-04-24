@@ -11,7 +11,7 @@ def timetoutc(mytime):
     return result_utc_datetime.strftime("%Y %m %d %H:%M:%S")
 
 def getinfo():
-  conn = sqlite3.connect('/home/pi/git/Web/mydatabase.db')
+  conn = sqlite3.connect(SQLALCHEMY_DATABASE_URI)
   cursor = conn.cursor()
 
   sql = "SELECT * FROM tempdata"

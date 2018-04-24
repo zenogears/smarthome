@@ -1,16 +1,24 @@
 #!/usr/bin/python3
 #! -*- coding: utf8 -*-
 
-import sqlite3
+import sqlalchemy
+from sqlalchemy import create_engine
+
+import datetime
 import sys
 import Adafruit_DHT
 import configparser
 import time
 
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'smarthome.db')
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+engine = create_engine('sqlite:///' + SQLALCHEMY_DATABASE_URI, echo=True)
+
 config = configparser.RawConfigParser()
 config.read("/home/pi/global_config.conf")
 
-databasename = "mydatabase.db"
 
 mytime = time.strftime("%Y %m %d %H:%M:%S", time.gmtime(time.time()))
 
@@ -51,3 +59,13 @@ cursor = conn.cursor()
 cursor.execute("""INSERT INTO tempdata VALUES ("{0}",{1},{2})""".format(mytime,temperature,humidity))
 
 conn.commit()
+
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+metadata = MetaData()
+Temp = Table('id', Integer,
+         Column('time', DateTime, primary_key=True),
+        Column('temperature', SmallInteger),
+        Column('humidity', SmallInteger),
+    )
+
+ins = Temp.insert().values(temperature=temperature, humidity=humidity)

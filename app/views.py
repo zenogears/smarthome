@@ -1,6 +1,12 @@
-from app import app
-from flask import render_template
+from flask import render_template, flash, redirect, session, url_for, request, g
+from flask.ext.login import login_user, logout_user, current_user, login_required
+
+from app import app, db
+from forms import LoginForm
 from .getfunc import getinfo
+from models import User, ROLE_USER, ROLE_ADMIN
+from models import Temp, NODATA
+
 
 
 @app.route('/')
