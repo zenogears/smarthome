@@ -13,7 +13,7 @@
 		<td>Температура</td>
 		<td>Влажность</td>
 	</tr>
-{% for item in result %}
+{% for item in result | sort(reverse = True) %}
 
 <tr align="center">
 	<td>{{item[0]}}</td>
