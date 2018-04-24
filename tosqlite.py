@@ -48,7 +48,7 @@ else:
 
 
 
-cursor = conn.cursor()
+#cursor = conn.cursor()
 # Создание таблицы
 #cursor.execute("""CREATE TABLE tempdata
 #                  (time, temp, humidity)
@@ -56,9 +56,9 @@ cursor = conn.cursor()
 #conn.commit()
 
 #print("INSERT INTO tempdata VALUES ({0},{1},{2})".format(mytime,temperature,humidity))
-cursor.execute("""INSERT INTO tempdata VALUES ("{0}",{1},{2})""".format(mytime,temperature,humidity))
+#cursor.execute("""INSERT INTO tempdata VALUES ("{0}",{1},{2})""".format(mytime,temperature,humidity))
 
-conn.commit()
+#conn.commit()
 
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 metadata = MetaData()
@@ -69,3 +69,5 @@ Temp = Table('id', Integer,
     )
 
 ins = Temp.insert().values(temperature=temperature, humidity=humidity)
+print (ins)
+ins.compile().params  
