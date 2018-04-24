@@ -4,8 +4,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 #from forms import LoginForm
 from .getfunc import getinfo
-from models import User, ROLE_USER, ROLE_ADMIN
-from models import Temp, NODATA
+#from models import User, ROLE_USER, ROLE_ADMIN
+#from models import Temp, NODATA
 
 
 
