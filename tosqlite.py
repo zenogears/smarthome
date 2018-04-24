@@ -70,6 +70,7 @@ Temp = Table('Temp', metadata,
         Column('humidity', SmallInteger),
     )
 
+<<<<<<< HEAD
 ins = Temp.insert().values(time=datetime.datetime.utcnow(), temperature=temperature, humidity=humidity)
 print (ins)
 print(ins.compile().params)
@@ -82,3 +83,8 @@ result = conn.execute(s)
 
 for row in result:
 	print(row)
+=======
+ins = Temp.insert().values(temperature=temperature, humidity=humidity)
+print (ins)
+ins.compile().params  
+>>>>>>> df7439357c691c10d3d4b02e710f08394fb75ee0
