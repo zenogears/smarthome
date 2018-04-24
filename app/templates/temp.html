@@ -1,14 +1,15 @@
 <html>
   <head>
-    <title>{{title}} - microblog</title>
+    <title>{{title}} - microclimat</title>
   </head>
   <body>
-      <h1>Hello, Nata!</h1>
+      <h1>Hello, Username!</h1>
 
 
 {% if result %}
 <table border='1'>
 	<tr align="center">
+		<td>№№</td>
 		<td>Время</td>
 		<td>Температура</td>
 		<td>Влажность</td>
@@ -19,6 +20,7 @@
 	<td>{{item[0]}}</td>
 	<td>{{item[1]}}</td>
 	<td>{{item[2]}}</td>
+	<td>{{item[3]}}</td>
 </tr>
 
 {%endfor%}
