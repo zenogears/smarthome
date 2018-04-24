@@ -3,18 +3,19 @@
 
 import sqlalchemy
 from sqlalchemy import create_engine
+from sqlalchemy import Column, Integer, DateTime, SmallInteger
+from sqlalchemy.sql import select
 
 import datetime
 import sys
 import Adafruit_DHT
 import configparser
 import time
+import os
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'smarthome.db')
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
-SQLALCHEMY_TRACK_MODIFICATIONS = True
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-engine = create_engine('sqlite:///' + SQLALCHEMY_DATABASE_URI, echo=True)
+engine = create_engine('sqlite:///' + os.path.join(basedir, 'smarthome.db'), echo=True)
 
 config = configparser.RawConfigParser()
 config.read("/home/pi/global_config.conf")
@@ -22,7 +23,7 @@ config.read("/home/pi/global_config.conf")
 
 mytime = time.strftime("%Y %m %d %H:%M:%S", time.gmtime(time.time()))
 
-conn = sqlite3.connect(databasename) # или :memory: чтобы сохранить в RAM
+#conn = sqlite3.connect(databasename) # или :memory: чтобы сохранить в RAM
 
 # Parse command line parameters.
 
@@ -48,7 +49,7 @@ else:
 
 
 
-cursor = conn.cursor()
+#cursor = conn.cursor()
 # Создание таблицы
 #cursor.execute("""CREATE TABLE tempdata
 #                  (time, temp, humidity)
@@ -56,16 +57,28 @@ cursor = conn.cursor()
 #conn.commit()
 
 #print("INSERT INTO tempdata VALUES ({0},{1},{2})".format(mytime,temperature,humidity))
-cursor.execute("""INSERT INTO tempdata VALUES ("{0}",{1},{2})""".format(mytime,temperature,humidity))
+#cursor.execute("""INSERT INTO tempdata VALUES ("{0}",{1},{2})""".format(mytime,temperature,humidity))
 
-conn.commit()
+#conn.commit()
 
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 metadata = MetaData()
-Temp = Table('id', Integer,
-         Column('time', DateTime, primary_key=True),
+Temp = Table('Temp', metadata,
+        Column('id', Integer, primary_key=True),
+        Column('time', DateTime),
         Column('temperature', SmallInteger),
         Column('humidity', SmallInteger),
     )
 
-ins = Temp.insert().values(temperature=temperature, humidity=humidity)
+ins = Temp.insert().values(time=datetime.datetime.utcnow(), temperature=temperature, humidity=humidity)
+print (ins)
+print(ins.compile().params)
+
+conn = engine.connect()
+result = conn.execute(ins)
+
+s = select([Temp])
+result = conn.execute(s)
+
+for row in result:
+	print(row)
