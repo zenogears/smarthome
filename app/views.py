@@ -1,8 +1,6 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required, LoginManager
 from werkzeug.urls import url_parse
-
-redirect
 from app import app, db, login
 
 
