@@ -1,0 +1,23 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{title}} - smarthome</title>
+    {% else %}
+    <title>smarthome</title>
+    {% endif %}
+  </head>
+  <body>
+      <div>
+        Smarthome:
+        <a href="{{ url_for('index') }}">Home</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('temp') }}">Sensors</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </div>
+    {% block content %}{% endblock %}
+  </body>
+
+</html>

@@ -2,9 +2,11 @@
 import sys
 import datetime
 from sqlalchemy import create_engine, DateTime, SmallInteger, Integer, Table, Column, MetaData, ForeignKey, select
-from config import SQLALCHEMY_DATABASE_URI
+# from config import Config
+# from Config import SQLALCHEMY_DATABASE_URI
 
-engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
+
+# engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
 
 
 def timetoutc(mytime):
@@ -13,21 +15,22 @@ def timetoutc(mytime):
     return result_utc_datetime.strftime("%Y %m %d %H:%M:%S")
 
 def getinfo():
-  returnfetch = []
-  metadata = MetaData()
-  Temp = Table('Temp', metadata,
-          Column('id', Integer, primary_key=True),
-          Column('time', DateTime),
-          Column('temperature', SmallInteger),
-          Column('humidity', SmallInteger),
-      )
+  # returnfetch = []
+  # metadata = MetaData()
+  # Temp = Table('Temp', metadata,
+  #         Column('id', Integer, primary_key=True),
+  #         Column('time', DateTime),
+  #         Column('temperature', SmallInteger),
+  #         Column('humidity', SmallInteger),
+  #     )
 
-  s = select([Temp])
+  # s = select([Temp])
 
-  conn = engine.connect()
-  result = conn.execute(s)
-  for item in result:
-    returnfetch.append((item[0],timetoutc(item[1]),item[2],item[3]))
+  # conn = engine.connect()
+  # result = conn.execute(s)
+  # for item in result:
+  #   returnfetch.append((item[0],timetoutc(item[1]),item[2],item[3]))
+  returnfetch = ('1','2','3','4')
 
   return(returnfetch)
 

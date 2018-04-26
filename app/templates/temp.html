@@ -1,12 +1,8 @@
-<html>
-  <head>
-    <title>{{title}} - microclimat</title>
-  </head>
-  <body>
-      <h1>Hello, Username!</h1>
-
-
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% block content %}
 {% if result %}
+      <h1>Hello, {{current_user.username}}!</h1>
 <table border='1'>
 	<tr align="center">
 		<td>№№</td>
@@ -29,3 +25,4 @@
 
   </body>
 </html>
+{% endblock %}

@@ -1,9 +1,17 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import imp
+import os
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from migrate.versioning import api
+
 from app import db
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'smarthome.db')
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
 migration = SQLALCHEMY_MIGRATE_REPO + '/versions/%03d_migration.py' % (api.db_version(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO) + 1)
 tmp_module = imp.new_module('old_model')
 old_model = api.create_model(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
