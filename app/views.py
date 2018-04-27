@@ -57,8 +57,9 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
-    if form.validate_on_submit() and form.invite.data == 'rebekka':
-        user = User(username=form.username.data, email=form.email.data)
+    if form.validate_on_submit() and form.invite.data == 'mwsfnklnvaklerklavbreb':
+        username = User.make_unique_nickname(form.username.data)
+        user = User(username=username, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -69,7 +70,7 @@ def register():
 @app.route('/edit', methods = ['GET', 'POST'])
 @login_required
 def edit():
-    form = EditForm()
+    form = EditForm(g.user.username)
     if form.validate_on_submit():
         g.user.username = form.username.data
         g.user.about_me = form.about_me.data
@@ -100,6 +101,10 @@ def internal_error(error):
 @app.route('/index')
 def index():
     return render_template('index.html', title='Main page')
+
+@app.route('/rasp')
+def rasp():
+    return render_template('rsettings.html', title='Raspberry Pi config page')
 
 @app.route('/user/<username>')
 @login_required
