@@ -3,13 +3,17 @@ from flask_login import login_user, logout_user, current_user, login_required, L
 from werkzeug.urls import url_parse
 from app import app, db, login
 
+import plotly
+import pandas as pd
+import numpy as np
+import json
 
 from app.models import User, ROLE_USER, ROLE_ADMIN
 from app.models import Temp, NODATA
 
 from app.forms import LoginForm, RegistrationForm
 
-from app.getfunc import getinfo
+from app.getfunc import getinfo, getgraphinfo
 
 @login.user_loader
 def load_user(id):
@@ -65,6 +69,10 @@ def page_not_found(e):
 def index():
     return render_template('index.html', title='Main page')
 
+@app.route('/usersettings')
+def usersettings():
+    return render_template('usersettings.html', title='Settings page')
+
 @app.route('/temp')
 @login_required
 def temp():
@@ -72,3 +80,36 @@ def temp():
         title = 'Home',
         username = User.query.get('id'),
         result = getinfo())
+
+@app.route('/tempgrapth')
+@login_required
+def tempgrapth():
+    graphs = [
+        dict(
+                data = [
+                    dict(
+                                y = getgraphinfo()['x'],
+                                x = [s for s in range(0,len(getgraphinfo()['y']))],
+                                type='scatter'
+                        )
+                ],
+                layout=dict(title='Temperature')
+            ),
+        dict(
+                data = [
+                    dict(
+                                y = getgraphinfo()['y'],
+                                x = [s for s in range(0,len(getgraphinfo()['y']))],
+                                type='scatter'
+                        )
+                ],
+                layout=dict(title='Humility')
+            )
+    ]
+    ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
+    graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template("graph.html",
+        title = 'TempGraph',
+        username = User.query.get('id'),
+        ids=ids,
+        graphJSON = graphJSON)
