@@ -38,5 +38,27 @@ def getinfo():
 
   return(returnfetch)
 
+def getgraphinfo():
+  returnfetch = {}
+  returnfetch['x'] = []
+  returnfetch['y'] = []
+  metadata = MetaData()
+  Temp = Table('Temp', metadata,
+          Column('id', Integer, primary_key=True),
+          Column('time', DateTime),
+          Column('temperature', SmallInteger),
+          Column('humidity', SmallInteger),
+      )
+
+  s = select([Temp])
+
+  conn = engine.connect()
+  result = conn.execute(s)
+  for item in result:
+    returnfetch['x'].append(item[2])
+    returnfetch['y'].append(item[3])
+
+  return(returnfetch)
+
 if __name__ == '__main__':
   getinfo()

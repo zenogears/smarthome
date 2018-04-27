@@ -5,6 +5,8 @@
     {% else %}
     <title>smarthome</title>
     {% endif %}
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/mystatic.css') }}"/>
+
   </head>
   <body>
       <div>
@@ -14,9 +16,11 @@
         <a href="{{ url_for('login') }}">Login</a>
         {% else %}
         <a href="{{ url_for('temp') }}">Sensors</a>
+        <a href="{{ url_for('usersettings') }}">Settings</a>
         <a href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
     </div>
+    <hr>
     {% block content %}{% endblock %}
   </body>
 
