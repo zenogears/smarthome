@@ -1,4 +1,9 @@
-@import 'https://fonts.googleapis.com/css?family=Inconsolata';
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(/fonts/googlefont1.woff2) format('woff2');
+}
 
 html {
   min-height: 100%;
