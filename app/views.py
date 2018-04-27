@@ -115,8 +115,8 @@ def usersettings(username):
         flash('User ' + username + ' not found.')
         return redirect(url_for('index'))
     posts = [
-        { 'author': user, 'body': 'Сегодня была хорошая погода.' },
-        { 'author': user, 'body': 'Температура на датчике просто замечательная.' }
+        { 'author': user, 'body': u'Сегодня была хорошая погода.' },
+        { 'author': user, 'body': u'Температура на датчике просто замечательная.' }
     ]
     return render_template('usersettings.html',
         username = user,
