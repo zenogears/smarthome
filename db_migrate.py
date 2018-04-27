@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 import imp
 import os
 from flask_sqlalchemy import SQLAlchemy
