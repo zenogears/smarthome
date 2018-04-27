@@ -2,5 +2,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-Настройки пользователя
+Привет, {{current_user.username}}!<br>
+Это твои настройки пользователя:
+
+<table>
+    <tr valign="top">
+        <td><img src="{{username.avatar(128)}}"></td>
+        <td>
+            <h1>User: {{username.username}}</h1>
+            {% if username.about_me %}
+            	<p>{{username.about_me}}</p>
+            {% endif %}
+            {% if username.last_seen %}
+            	<p><i>Последний раз онлайн: {{username.last_seen}}</i></p>
+            {% endif %}
+            {% if username.id == g.user.id %}<p><a href="{{url_for('edit')}}">Edit</a></p>{% endif %}
+        </td>
+    </tr>
+</table>
+<hr>
+<h4>Заметки:</h4>
+{% for post in posts %}
+{% include 'post.html' %}
+{% endfor %}
+
 {% endblock %}
+

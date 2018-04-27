@@ -16,7 +16,7 @@
         <a href="{{ url_for('login') }}">Login</a>
         {% else %}
         <a href="{{ url_for('temp') }}">Sensors</a>
-        <a href="{{ url_for('usersettings') }}">Settings</a>
+        <a href="{{ url_for('usersettings', username=current_user.username ) }}">Settings</a>
         <a href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
     </div>
