@@ -11,10 +11,10 @@ import pandas as pd
 import numpy as np
 import json
 
-from app.models import User, ROLE_USER, ROLE_ADMIN
+from app.models import User, ROLE_USER, ROLE_ADMIN, Sensorsdb, Raspb3BPins
 from app.models import Temp, NODATA
 
-from app.forms import LoginForm, RegistrationForm, EditForm
+from app.forms import LoginForm, RegistrationForm, EditForm, AddSensor
 
 from app.getfunc import getinfo, getgraphinfo
 
@@ -104,7 +104,8 @@ def index():
 
 @app.route('/rasp')
 def rasp():
-    return render_template('rsettings.html', title='Raspberry Pi config page')
+    pins = Raspb3BPins.query
+    return render_template('rsettings.html', title='Raspberry Pi config page', pins = pins)
 
 @app.route('/user/<username>')
 @login_required
@@ -130,6 +131,66 @@ def temp():
         title = 'Home',
         username = User.query.get('id'),
         result = getinfo())
+
+@app.route('/swiki')
+@login_required
+def swiki():
+    sensors = Sensorsdb.query
+    return render_template("sensorsdb.html",
+        title = 'Sensors database',
+        username = User.query.get('id'),
+        sensorsids = sensors
+        )
+
+@app.route('/addsensor', methods = ['GET', 'POST'])
+@login_required
+def addsensor():
+    form = AddSensor()
+    if form.validate_on_submit():
+        sensor = Sensorsdb(name=form.name.data,about=form.about.data, pic=form.pic.data)
+        db.session.add(sensor)
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('swiki'))
+    else:
+        form.name.data = ""
+        form.about.data = ""
+        form.pic.data = ""
+    return render_template('addsensor.html',
+        title = "Add Sensor",
+        formname = "addsensor",
+        form = form)
+
+@app.route('/editsensor/<pid>', methods = ['GET', 'POST'])
+@login_required
+def editsensor(pid):
+    form = AddSensor()
+    sensorquery = Sensorsdb.query.filter_by(id=pid).first()
+    if form.validate_on_submit():
+        editedsensor = sensorquery
+        editedsensor.about = form.about.data
+        editedsensor.name = form.name.data
+        editedsensor.pic = form.pic.data
+        db.session.commit()
+
+        flash('Your changes have been saved.')
+        return redirect(url_for('swiki'))
+    else:
+        form.name.data = sensorquery.name
+        form.about.data = sensorquery.about
+        form.pic.data = sensorquery.pic
+    return render_template('addsensor.html',
+        title = "Edit Sensor",
+        formname = "editsensor",
+        form = form)
+
+@app.route('/remove/<pid>', methods = ['GET', 'POST'])
+@login_required
+def removesensor(pid):
+    sensorquery = Sensorsdb.query.filter_by(id=pid).first()
+    db.session.delete(sensorquery)
+    db.session.commit()
+    return redirect(url_for('swiki'))
 
 @app.route('/tempgrapth')
 @login_required

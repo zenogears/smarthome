@@ -1,0 +1,36 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Sensors database:</h3>
+
+{% if sensorsids != None %}
+<table border='1'>
+    <tr>
+        <td>ID</td>
+        <td>Наименование</td>
+        <td>Описание</td>
+        <td>Изображение</td>
+        <td>Подключения</td>
+        <td>Редактировать</td>
+        <td>Удалить</td>
+    </tr>
+{% for i in sensorsids %}
+<tr>
+        <td>{{i['id']}}</td>
+        <td><a href="https://www.google.com/search?q={{i['name']}}&ie=utf-8&oe=utf-8">{{i['name']}}</td>
+        <td>{{i['about']}}</td>
+        <td><a href="{{i['pic']}}"><img src="{{i['pic']}}" width="100" height="80" alt="Computer Hope"></a></td>
+        <td>{{i['connected']}}</td>
+        <td><a href="{{ url_for('editsensor', pid=i['id'] ) }}">Edit</a></td>
+        <td><a href="{{ url_for('removesensor', pid=i['id']) }}">Remove</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+
+
+<br><a href="{{ url_for('addsensor') }}">Add Sensor</a>
+
+
+{% endblock %}

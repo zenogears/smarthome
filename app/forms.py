@@ -30,6 +30,7 @@ class RegistrationForm(FlaskForm):
 class EditForm(FlaskForm):
     username = TextField('username', validators = [Required()])
     about_me = TextAreaField('about_me', validators = [Length(min = 0, max = 140)])
+    #myraspberry = 
 
     def __init__(self, original_nickname, *args, **kwargs):
         FlaskForm.__init__(self, *args, **kwargs)
@@ -45,3 +46,8 @@ class EditForm(FlaskForm):
             self.username.errors.append('This nickname is already in use. Please choose another one.')
             return False
         return True
+
+class AddSensor(FlaskForm):
+    name = TextField('name', validators = [Required()])
+    about = TextAreaField('about', validators = [Length(min = 0, max = 140)])
+    pic = TextField('pic')

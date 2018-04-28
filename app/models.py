@@ -8,6 +8,7 @@ import datetime
 ROLE_USER = 0
 ROLE_ADMIN = 1
 NODATA = 0
+NOPIC = 'no picture'
 
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
@@ -22,6 +23,7 @@ class User(UserMixin, db.Model):
     role = db.Column(db.SmallInteger, default = ROLE_USER)
     posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
     about_me = db.Column(db.String(140))
+    my_raspberry = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime)
     followed = db.relationship('User', 
         secondary = followers, 
@@ -85,12 +87,37 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post %r>' % (self.body)
 
-class Raspb3B(db.Model):
+class RasModels(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    type = db.Column(db.String(24), index = True)
-    number = db.Column(db.String(8), index = True)
-    pin_info = db.Column(db.String(140))
-
+    mname = db.Column(db.String(24), index = True)
+    mpins = db.Column(db.Integer, index = True)
 
     def __repr__(self):
-        return '<pin %r>' % (self.name)
+        return '<RasModels %r>' % (self.mname)
+
+class Raspb3BPins(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    type = db.Column(db.String(24))
+    number = db.Column(db.String(8))
+    pin_info = db.Column(db.String(140))
+    connected = db.relationship('Sensors', backref = 'conpin', lazy = 'dynamic')
+
+    def __repr__(self):
+        return '<Raspb3BPins %r>' % (self.name)
+
+class Sensorsdb(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(140), index = True)
+    about = db.Column(db.String(140), index = True)
+    pic = db.Column(db.String(256))
+
+    def __repr__(self):
+        return '<Sensor %r>' % (self.name)
+
+class Sensors(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(140), index = True)
+    pin_id = db.Column(db.Integer, db.ForeignKey('raspb3_b_pins.id'))
+
+    def __repr__(self):
+        return '<Sensors %r>' % (self.name)
