@@ -1,5 +1,18 @@
-<table>
-    <tr valign="top">
-        <td><img src="{{post.author.avatar(50)}}"></td><td><i>{{post.author.username}} says:</i><br>{{post.body}}</td>
-    </tr>
+
+ <table>
+ 	<tr>
+<td><div style="float:left;"><img src="{{post.author.avatar(50)}}"></div></td>
+<td><div style="float:right;"><p><a href="{{url_for('usersettings', username = post.author.username)}}">{{post.author.username}}</a> said {{momentjs(post.timestamp).fromNow()}}:</p>
+			<p><strong>{{post.body}}</strong></p></div> </td>
+</tr>
+<tr>
+<td style="float:right;" align="right">
+	{% if post.author.id == g.user.id or current_user.role == 1 %}
+		<div><a href="{{ url_for('delete', id = post.id) }}">Delete</a></div>
+	{% endif %}
+</td>
+</tr>
+ 
 </table>
+
+ <br>

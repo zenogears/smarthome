@@ -1,44 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Register</h1>
+    <!-- <h1 class="header-page">Sign In</h1> -->
+
+<div class="form-wrapper">
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
+        <ul class="form-elem-list">
+        <li class="form-item">
+            {{ form.username(size=32, placeholder="Username") }}
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=64) }}<br>
+        </li>
+        <li class="form-item">
+            {{ form.email(size=32, placeholder="Email") }}
             {% for error in form.email.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
+        </li>
+        <li class="form-item">
+            {{ form.password(size=32, placeholder="Password") }}
             {% for error in form.password.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.password2.label }}<br>
-            {{ form.password2(size=32) }}<br>
+        </li>
+        <li class="form-item">
+            {{ form.password2(size=32, placeholder="Repeat password") }}
             {% for error in form.password2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.invite.label }}<br>
-            {{ form.invite(size=32) }}<br>
+        </li>
+        <li class="form-item">
+            {{ form.invite(size=32, placeholder="Invite") }}
             {% for error in form.invite.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
+        </li>
+        <li class="form-item-btn">
+            {{ form.submit(class_="form-item-btn", id="submit", type="submit") }}
+        </li>
+        </ul>
     </form>
+</div>
 {% endblock %}

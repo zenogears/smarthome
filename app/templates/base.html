@@ -5,23 +5,33 @@
     {% else %}
     <title>smarthome</title>
     {% endif %}
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/mystatic.css') }}"/>
-
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/> -->
+    <script src="{{ url_for('static', filename='js/moment.js') }}"></script>
   </head>
-  <body>
+
+  <body >
       <div>
         Smarthome:
         <a href="{{ url_for('index') }}">Home</a>
         {% if current_user.is_anonymous %}
         <a href="{{ url_for('login') }}">Login</a>
+        
         {% else %}
+        
         <a href="{{ url_for('rasp') }}">Raspberry Settings</a>
         <a href="{{ url_for('temp') }}">Sensors</a>
-        <a href="{{ url_for('usersettings', username=current_user.username ) }}">Settings</a>
+        <a href="{{ url_for('usersettings', username=current_user.username ) }}">Profile</a>
         <a href="{{ url_for('swiki') }}">SensorsDB</a>
         <a href="{{ url_for('logout') }}">Logout</a>
+        
+        <form style="display: inline;" action="{{url_for('search')}}" method="post" name="search">{{g.search_form.hidden_tag()}}{{g.search_form.search(size=20)}}<input type="submit" value="Search">
+        </form>
+        
         {% endif %}
     </div>
+
     <hr>
     {% block content %}{% endblock %}
   </body>

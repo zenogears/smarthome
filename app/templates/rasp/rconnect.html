@@ -1,0 +1,4 @@
+<br>
+{% for sensor in sens %}
+<a href="{{ url_for ('pin_connect_with_sensor', pinid = pin_id, sensid = sensor['id']) }}">{{sensor['name']}}</a><br>
+{% endfor %}

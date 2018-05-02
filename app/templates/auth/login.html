@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- <h1 class="header-page">Sign In</h1> -->
+    <div class="form-wrapper">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <ul class="form-elem-list">
+                <li class="form-item">
+                    {{ form.username(size=32, placeholder="Username") }}
+                    {% for error in form.username.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </li>
+                <li class="form-item">
+                    {{ form.password(size=32, type="password", value="", placeholder="Password") }}
+                    {% for error in form.password.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </li>
+                <li class="form-elem-remember">
+                    {{ form.remember_me() }} {{ form.remember_me.label }}
+                </li>
+                <li class="form-item-btn">
+                    {{ form.submit(class_="form-item-btn", id="submit", type="submit") }}
+                </li>
+            </ul>
+            <span>New User? <a href="{{ url_for('register') }}">Click to Register!</a></span><br>
+            <span>Forgot Your Password? <a href="{{ url_for('reset_password_request') }}">Click to Reset It</a></span>
+            
+        
+        </form>
+    </div>
+{% endblock %}

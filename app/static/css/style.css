@@ -1,0 +1,172 @@
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(/fonts/googlefont1.woff2) format('woff2');
+}
+
+html {
+  min-height: 100%;
+  background: url(../img/background.jpg) no-repeat;
+  background-attachment: fixed; /* Фиксируем фон веб-страницы */
+}
+
+body {
+    box-sizing: border-box;
+    height: 100%;
+    background-color:rgba(0,0,0,0.5);
+    font-size: 1.5rem;
+    color: rgba(19, 144, 19, 0.8);
+    text-shadow: 0 0 1px #0e0e0e;
+    font-family: 'Inconsolata', Helvetica, sans-serif;
+}
+
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background:
+      repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 99;
+}
+
+.overlay::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(32, 128, 32, 0.2) 2%,
+      rgba(32, 128, 32, 0.8) 3%,
+      rgba(32, 128, 32, 0.2) 3%,
+      transparent 100%);
+  background-repeat: no-repeat;
+  animation: scan 7.5s linear 0s infinite;
+}
+
+@keyframes scan {
+  0%        { background-position: 0 -100vh; }
+  35%, 100% { background-position: 0 100vh; }
+}
+
+.terminal {
+  box-sizing: inherit;
+  position: absolute;
+  height: 100%;
+  width: 1000px;
+  max-width: 100%;
+  padding: 4rem;
+  text-transform: uppercase;
+}
+
+.output {
+  color: rgba(128, 255, 128, 0.8);
+  text-shadow:
+      0 0 1px rgba(51, 255, 51, 0.4),
+      0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+.output::before {
+  content: "> ";
+}
+
+/*
+.input {
+  color: rgba(192, 255, 192, 0.8);
+  text-shadow:
+      0 0 1px rgba(51, 255, 51, 0.4),
+      0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+.input::before {
+  content: "$ ";
+}
+*/
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a::before {
+  content: "[";
+}
+
+a::after {
+  content: "]";
+}
+
+ul, li { list-style: none; }
+
+.errorcode {
+  color: white;
+}
+
+.header-page{ text-align : center; display: none; }
+
+.form-wrapper{
+    text-align: center;
+    width: 450px;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 10px;
+    border: 5px solid #186d5e;
+    background: rgba(255, 255, 255, 0.5);
+    margin-top: 140px;
+}
+
+.form-item{
+    padding: 3px;
+    background: rgba(74, 74, 74, 0);
+    margin-bottom: 7px;
+    border-bottom: 2px solid rgba(136, 136, 136, 0.5);
+}
+
+.form-item > input[type="text"], input[type="password"]{
+    padding: 8px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #000;
+    background: rgba(0, 0, 0, 0);
+}
+
+.form-elem-remember{
+    text-align: right;
+    font-size: 16px;
+    color: #484848;
+}
+
+li > input[type="submit"]{
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    border: none;
+    background: rgba(7, 103, 85, 0.6);
+    color: #d8d8d8;
+    font-size: 17px;
+    margin: 15px 0px 15px 0;
+}
+
+.form-wrapper span{
+    font-size: 16px;
+    color: #484848;
+}
+
+.form-wrapper span > a{
+    color: #036315;
+}

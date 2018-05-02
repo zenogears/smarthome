@@ -1,9 +1,15 @@
-from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, current_user
-from hashlib import md5
-from app import db, login
+import jwt
 import datetime
+from time import time
+
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from flask_login import UserMixin, current_user
+import flask_whooshalchemy as whooshalchemy
+
+from hashlib import md5
+
+from app import app, db, login
 
 ROLE_USER = 0
 ROLE_ADMIN = 1
@@ -44,18 +50,35 @@ class User(UserMixin, db.Model):
     def avatar(self, size):
         return 'http://www.gravatar.com/avatar/' + md5(self.email.encode('utf8')).hexdigest() + '?d=mm&s=' + str(size)
 
-    def follow(self, user):
-        if not self.is_following(user):
-            self.followed.append(user)
+    def follow(self, username):
+        if not self.is_following(username):
+            self.followed.append(username)
             return self
 
-    def unfollow(self, user):
-        if self.is_following(user):
-            self.followed.remove(user)
+    def unfollow(self, username):
+        if self.is_following(username):
+            self.followed.remove(username)
             return self
 
-    def is_following(self, user):
-        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+    def is_following(self, username):
+        return self.followed.filter(followers.c.followed_id == username.id).count() > 0
+
+    def followed_posts(self):
+        return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == self.id).order_by(Post.timestamp.desc())
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
 
     @staticmethod
     def make_unique_nickname(username):
@@ -79,6 +102,8 @@ class Temp(db.Model):
         return '<time {0}>'.format(self.time)
 
 class Post(db.Model):
+    __searchable__ = ['body']
+
     id = db.Column(db.Integer, primary_key = True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime)
@@ -86,6 +111,8 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % (self.body)
+
+
 
 class RasModels(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -95,15 +122,20 @@ class RasModels(db.Model):
     def __repr__(self):
         return '<RasModels %r>' % (self.mname)
 
-class Raspb3BPins(db.Model):
+class Raspb3BPins(db.Model): #User
     id = db.Column(db.Integer, primary_key = True)
     type = db.Column(db.String(24))
     number = db.Column(db.String(8))
     pin_info = db.Column(db.String(140))
-    connected = db.relationship('Sensors', backref = 'conpin', lazy = 'dynamic')
+    connected = db.relationship('Sensors', backref = 'conpin')
 
     def __repr__(self):
-        return '<Raspb3BPins %r>' % (self.name)
+        return '<Raspb3BPins %r>' % (self.id)
+
+    # def connected(self,sensor_id):
+    #     #self.followed.append(username)
+    #     #return self
+    #     return True
 
 class Sensorsdb(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -114,10 +146,12 @@ class Sensorsdb(db.Model):
     def __repr__(self):
         return '<Sensor %r>' % (self.name)
 
-class Sensors(db.Model):
+class Sensors(db.Model): #Post
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(140), index = True)
-    pin_id = db.Column(db.Integer, db.ForeignKey('raspb3_b_pins.id'))
+    name = db.Column(db.String(140))
+    raspin_id = db.Column(db.Integer, db.ForeignKey('raspb3_b_pins.id'))
 
     def __repr__(self):
         return '<Sensors %r>' % (self.name)
+
+whooshalchemy.whoosh_index(app, Post)

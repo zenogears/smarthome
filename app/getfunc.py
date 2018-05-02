@@ -40,8 +40,9 @@ def getinfo():
 
 def getgraphinfo():
   returnfetch = {}
-  returnfetch['x'] = []
-  returnfetch['y'] = []
+  returnfetch['temp'] = []
+  returnfetch['humi'] = []
+  returnfetch['time'] = []
   metadata = MetaData()
   Temp = Table('Temp', metadata,
           Column('id', Integer, primary_key=True),
@@ -55,8 +56,9 @@ def getgraphinfo():
   conn = engine.connect()
   result = conn.execute(s)
   for item in result:
-    returnfetch['x'].append(item[2])
-    returnfetch['y'].append(item[3])
+    returnfetch['time'].append(item[1])
+    returnfetch['temp'].append(item[2])
+    returnfetch['humi'].append(item[3])
 
   return(returnfetch)
 

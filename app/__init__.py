@@ -2,11 +2,20 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_mail import Mail
+from momentjs import momentjs
+from flask_babel import Babel
+from flask import Blueprint
+
 from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.jinja_env.globals['momentjs'] = momentjs
 db = SQLAlchemy(app)
+mail = Mail(app)
+babel = Babel(app)
+bp = Blueprint('errors', __name__)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
@@ -30,6 +39,10 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('microblog startup')
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 #print(app.config['SQLALCHEMY_MIGRATE_REPO'])
 # app.config['']

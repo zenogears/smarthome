@@ -1,0 +1,55 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+{% set roles = {'0':'User',
+'1':'Admin'}
+%}
+
+{% if current_user.id == username.id %}
+Привет, {{current_user.username}}!<br>
+Это твои настройки пользователя:
+{% else %}
+Пользователь {{username.username}}
+{% endif %}
+
+<table>
+    <tr valign="top">
+        <td><div style="float:left;"><img src="{{username.avatar(128)}}"></div></td>
+        <td><div style="float:right;">
+            <h1>{{roles[username.role]}}: {{username.username}}</h1>
+            
+            {% if username.about_me %}
+                <p>{{username.about_me}}</p>
+            {% endif %}
+            
+            {% if username.last_seen %}
+                <p><em>Последний раз онлайн: {{momentjs(username.last_seen).calendar()}}</em></p>
+            {% endif %}
+            
+            <p>{{username.followers.count()}} followers | 
+            {% if current_user.id == username.id %}
+                <a href="{{url_for('edit')}}">Edit your profile</a>
+            {% elif not current_user.is_following(username) %}
+                <a href="{{url_for('follow', username = username.username)}}">Follow</a>
+            {% else %}
+                <a href="{{url_for('unfollow', username = username.username)}}">Unfollow</a>
+            {% endif %}
+            </p></div>
+        </td>
+        
+    </tr>
+</table>
+<hr>
+<h4>Заметки:</h4>
+
+{% for post in posts.items %}
+{% include 'post.html' %}
+{% endfor %}
+
+{% if posts.has_prev %}<a href="{{ url_for('usersettings', username=username.username, page = posts.prev_num) }}"><< Newer posts</a>{% else %}<< Newer posts{% endif %} | 
+{% if posts.has_next %}<a href="{{ url_for('usersettings', username=username.username, page = posts.next_num) }}">Older posts >></a>{% else %}Older posts >>{% endif %}
+
+
+{% endblock %}

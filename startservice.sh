@@ -9,11 +9,11 @@ test=$(curl --connect-timeout 25 --retry 3 --retry-delay 20 --write-out %{http_c
 case $1 in
   start)
      cd "$FORMS_HOME"
-    ./run.py 2>$1 >/dev/null &
+    ./run.py 2>&1 >/dev/null &
    exit 0
   ;;
   stop)
-    processes=$(ps aux |grep python |grep "run.py")
+    processes=$(ps aux |grep python |grep "run.py" | awk '{print $2}')
     if [[ -n "$processes" ]]; then
 
     for i in $processes
@@ -36,7 +36,7 @@ case $1 in
   restart)
   if [[ "$test" -ne 200 ]]; then
 
-  processes=$(ps aux |grep python |grep "run.py")
+  processes=$(ps aux |grep python |grep "run.py" | awk '{print $2}')
   if [[ -n "$processes" ]]; then
 
     for i in $processes
@@ -46,9 +46,21 @@ case $1 in
   fi
 
   cd "$FORMS_HOME"
-  ./run.py
+  ./run.py 2>&1 >/dev/null &
+  exit 0
 
   fi
+  ;;
+
+  teststart)
+  processes=$(ps aux |grep python |grep "run.py")
+  if [[ -z "$processes" ]]; then
+  cd "$FORMS_HOME"
+    ./run.py 2>&1 >/dev/null &
+   exit 0
+
+  fi
+
 
   ;;
   *)

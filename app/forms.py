@@ -51,3 +51,19 @@ class AddSensor(FlaskForm):
     name = TextField('name', validators = [Required()])
     about = TextAreaField('about', validators = [Length(min = 0, max = 140)])
     pic = TextField('pic')
+
+class PostForm(FlaskForm):
+    post = TextField('post', validators = [Required()])
+
+class SearchForm(FlaskForm):
+    search = TextField('search', validators = [Required()])
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request Password Reset')
