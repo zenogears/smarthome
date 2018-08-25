@@ -101,6 +101,7 @@ class Temp(db.Model):
     def __repr__(self):
         return '<time {0}>'.format(self.time)
 
+
 class Post(db.Model):
     __searchable__ = ['body']
 

@@ -1,0 +1,11 @@
+
+<tr align="center">
+	<td>{{item.id}}</td>
+	<td width="120">{{momentjs(item.time).format('DD MMMM YYYY')}}</td>
+	<td width="120">{{momentjs(item.time).format('HH:mm:ss')}}</td>
+	<td>{{item.temperature}}</td>
+	<td>{{item.humidity}}</td>
+	{% if current_user.role == 1 %}
+	<td><a href='/deltemp/{{item.id}}'>Удалить</a></td>
+	{% endif %}
+</tr>

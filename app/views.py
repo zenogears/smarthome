@@ -5,6 +5,22 @@ from flask_sqlalchemy import get_debug_queries
 from werkzeug.urls import url_parse
 from app import app, db, login, bp
 
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+button1 = 3
+button2 = 4
+
+#initialize GPIO status variables
+button1Sts = GPIO.LOW
+button2Sts = GPIO.LOW
+
+# Set button and PIR sensor pins as an input
+GPIO.setup(button1, GPIO.IN)   
+GPIO.setup(button2, GPIO.IN)
+
 from datetime import datetime
 
 import plotly
@@ -19,7 +35,7 @@ from app.models import Temp, NODATA
 
 from app.forms import LoginForm, RegistrationForm, EditForm, AddSensor, PostForm, SearchForm, ResetPasswordRequestForm, ResetPasswordForm
 
-from app.getfunc import getinfo, getgraphinfo
+from app.getfunc import getinfo, getgraphinfo, getlastinfo, update_temphum
 
 @login.user_loader
 def load_user(id):
@@ -130,6 +146,62 @@ def register():
         #return redirect(url_for('index'))
         return redirect(request.args.get('next') or url_for('index'))
     return render_template('auth/register.html', title='Register', form=form)
+
+@app.route('/buttons', methods = ['GET', 'POST'])
+@login_required
+def buttons():
+    # Read Sensors Status
+    button1Sts = GPIO.input(button1)
+    button2Sts = GPIO.input(button2)
+
+    templateData = {
+      'title' : 'GPIO input Status!',
+      'button1'  : button1Sts,
+      'button2'  : button2Sts
+      }
+    return render_template('rasp/buttons.html', result = getlastinfo(), **templateData)
+
+@app.route("/buttons/<deviceName>/<action>")
+@login_required
+def buttons_action(deviceName, action):
+    if deviceName == 'button1':
+        actuator = button1
+    if deviceName == 'button2':
+        actuator = button2
+   
+    if action == "on":
+        GPIO.setup(actuator, GPIO.OUT)   #устанавливаем пин на выходной сигнал
+        GPIO.output(actuator, GPIO.HIGH)
+    if action == "off":
+        GPIO.setup(actuator, GPIO.OUT)   #устанавливаем пин на выходной сигнал
+        GPIO.output(actuator, GPIO.LOW)
+             
+    #button1Sts = GPIO.input(button1)
+    #button2Sts = GPIO.input(button2)
+   
+    #templateData = {
+    #            'title' : 'GPIO input Status info',
+    #          'button1'  : button1Sts,
+    #          'button2'  : button2Sts,
+    #}
+    return redirect(url_for('buttons')) #, result = getlastinfo(), **templateData))
+    #return render_template('rasp/buttons.html', result = getlastinfo(), **templateData)
+
+@app.route("/buttons/<tempdat>")
+@login_required
+def buttons_tempdat(tempdat):
+    # Read Sensors Status
+    #button1Sts = GPIO.input(button1)
+    #button2Sts = GPIO.input(button2)
+    update_temphum()
+
+    #templateData = {
+    #  'title' : 'GPIO input temp updated!',
+    #  'button1'  : button1Sts,
+    #  'button2'  : button2Sts
+    #  }
+    return redirect(url_for('buttons')) #, result = getlastinfo(), **templateData))
+    #return render_template('rasp/buttons.html', result = getlastinfo(), **templateData)
 
 @app.route('/edit', methods = ['GET', 'POST'])
 @login_required
@@ -278,13 +350,30 @@ def user_popup(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('index/user_popup.html', user=user)
 
+
 @app.route('/temp')
+@app.route('/temp/<int:page>', methods = ['GET', 'POST'])
 @login_required
-def temp():
+def temp(page = 1):
+    #result = Temp.all_my_temphum().paginate(page, app.config['POSTS_PER_PAGE'], False)
+    result = Temp.query.order_by('-id').paginate(page, app.config['POSTS_PER_PAGE'], False)
+    pages = len(Temp.query.order_by('-id').all()) // app.config['POSTS_PER_PAGE'] + bool(len(Temp.query.order_by('-id').all()) % app.config['POSTS_PER_PAGE'])
+    #Temp.all_my_temphum().paginate(page, app.config['POSTS_PER_PAGE'], False)
     return render_template("rasp/temp.html",
         title = 'Home',
         username = User.query.get('id'),
-        result = getinfo())
+        result = result,
+        pages = pages,
+        nowpage = page)
+
+
+@app.route('/deltemp/<timeid>')
+@login_required
+def delete_from_temp(timeid):
+    tempquery = Temp.query.filter_by(id=timeid).first()
+    db.session.delete(tempquery)
+    db.session.commit()
+    return redirect(url_for('temp'))
 
 @app.route('/swiki')
 @login_required

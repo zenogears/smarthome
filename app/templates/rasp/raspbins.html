@@ -21,7 +21,7 @@
 	<tr>
 		<td>{% if sens.filter_by(raspin_id = pin.id).first().conpin %}<a href="{{url_for('pin_delconnect', sensid = sens.filter_by(raspin_id = pin.id).first().id)}}">Удалить Сенсор</a>{% else %}{% endif %}</td>
 
-	    <td>{% if not sens.filter_by(raspin_id = pin.id).first().conpin %}<a href="{{url_for('pin_connect', pin_id = pin['id'])}}">Подключить Сенсор</a>{% else %}Подключен: {{ sens.filter_by(raspin_id = pin.id).first().name }}{% endif %}</td>
+	    <td>{% if not sens.filter_by(raspin_id = pin.id).first().conpin %}<a href="{{url_for('pin_connect', pin_id = pin['id'])}}">Подключить Сенсор</a>{% else %}Настроить: {{ sens.filter_by(raspin_id = pin.id).first().name }}{% endif %}</td>
 
 	    <td align='right' style="color:{{ca[pin.type]}}; width:120px; ">{{a[pin.type]}} {{pin.number}}</td>
 
@@ -44,7 +44,7 @@
 		</td>
 	    <td align="left" style="color:{{ca[pin.type]}}; width:120px;">{{pin.number}} {{a[pin.type]}}</td>
 
-	    <td>{% if not sens.filter_by(raspin_id = pin.id).first().conpin %}<a href="{{url_for('pin_connect', pin_id = pin.id)}}">Подключить Сенсор</a>{% else %}Подключен: {{ sens.filter_by(raspin_id = pin.id).first().name }}{% endif %}</td>
+	    <td>{% if not sens.filter_by(raspin_id = pin.id).first().conpin %}<a href="{{url_for('pin_connect', pin_id = pin.id)}}">Подключить Сенсор</a>{% else %}Настроить: {{ sens.filter_by(raspin_id = pin.id).first().name }}{% endif %}</td>
 
 	    <td>{% if sens.filter_by(raspin_id = pin.id).first().conpin %}<a href="{{url_for('pin_delconnect', sensid = sens.filter_by(raspin_id = pin.id).first().id)}}">Удалить Сенсор</a>{% else %}{% endif %}</td>
 	        

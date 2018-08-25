@@ -4,6 +4,7 @@ with open('/home/pi/mailpassword','r') as f:
     passphrase = f.read()
 
 class Config(object):
+    TEMPLATES_AUTO_RELOAD = True
     MAX_SEARCH_RESULTS = 50
     WHOOSH_BASE = os.path.join(basedir, 'search.db')
     POSTS_PER_PAGE = 10

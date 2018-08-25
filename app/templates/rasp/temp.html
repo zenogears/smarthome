@@ -6,25 +6,69 @@
       <a href="/tempgrapth">Graphs</a>
       <hr>
 
+<div style='padding-left:15px;'>
 <table border='1'>
 	<tr align="center">
 		<td>№№</td>
+		<td>Дата</td>
 		<td>Время</td>
 		<td>Температура</td>
 		<td>Влажность</td>
+		{% if current_user.role == 1 %}
+		<td>Action</td>
+		{% endif %}
 	</tr>
-{% for item in result | sort(reverse = True) %}
 
-<tr align="center">
-	<td>{{item[0]}}</td>
-	<td>{{item[1]}}</td>
-	<td>{{item[2]}}</td>
-	<td>{{item[3]}}</td>
-</tr>
 
-{%endfor%}
+<!-- posts is a Paginate object -->
+{% for item in result.items %}
+    {% include 'rasp/temppag.html' %}
+{% endfor %}
+
 
 </table>
+
+
+{% if result.has_prev %}<a href="{{ url_for('temp', page = result.prev_num) }}"><< Значения новее</a>{% else %}<< Значения новее{% endif %} | 
+{% if result.has_next %}<a href="{{ url_for('temp', page = result.next_num) }}">Значения старее >></a>{% else %}Значения старее >>{% endif %}
+<br>
+
+На страницу: 
+
+{% if pages > 10 %}
+
+	{% if nowpage > 4 and nowpage < pages - 3 %}
+		<a href="{{ url_for('temp', page = 1) }}">1</a>...
+		{% for page in range(nowpage - 2, nowpage + 3) %}
+			<a href="{{ url_for('temp', page = page) }}">{{page}}</a>
+		{% endfor %}
+		...<a href="{{ url_for('temp', page = pages) }}">{{pages}}</a>
+		
+	{% elif nowpage >= pages - 3 %}
+		<a href="{{ url_for('temp', page = 1) }}">1</a>...
+		{% for page in range(nowpage - 2, pages + 1) %}
+			<a href="{{ url_for('temp', page = page) }}">{{page}}</a>
+		{% endfor %}
+	{% elif nowpage <= 4 %}
+		
+		{% for page in range(1, nowpage + 3) %}
+			<a href="{{ url_for('temp', page = page) }}">{{page}}</a>
+		{% endfor %}
+		...<a href="{{ url_for('temp', page = pages) }}">{{pages}}</a>
+	
+	{% endif %}
+	
+
+{% else %}
+
+
+	{% for page in range(1, pages + 1) %}
+		<a href="{{ url_for('temp', page = page) }}">{{page}}</a>
+	{% endfor %}
+
+{% endif %}
+
+</div>
 
 {% endif %}
 

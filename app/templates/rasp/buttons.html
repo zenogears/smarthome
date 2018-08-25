@@ -1,0 +1,39 @@
+{% set status = {0:'выключено', 1:'включено' } %}
+
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{title}}</h1>
+
+        <h3>
+        	<img src='static/img/pilot.jpg' width="100" height="100" alt="Computer Hope"/>
+        	{% if button1 == 0 %}
+        	<a href="/buttons/button1/on" class="button">
+        		<img src='static/img/off.png' width="100" height="100" alt="Computer Hope"/>
+        	</a>
+        	{% else %}
+        	<a href="/buttons/button1/off" class="button">
+        		<img src='static/img/on.png' width="100" height="100" alt="Computer Hope"/>
+        	</a>
+        	{% endif %}
+        </h3>
+
+        <h3><img src='static/img/tcvetlampa.jpg' width="100" height="100" alt="Computer Hope"/>
+        	{% if button2 == 0 %}
+        	<a href="/buttons/button2/on" class="button">
+        		<img src='static/img/off.png' width="100" height="100" alt="Computer Hope"/>
+        	</a> 
+        	{% else %}
+        	<a href="/buttons/button2/off" class="button">
+        		<img src='static/img/on.png' width="100" height="100" alt="Computer Hope"/>
+        	</a>
+        	{% endif %} 
+    	</h3>
+        
+        <h3>Датчик ({{ result[0][1] }}): t = {{ result[0][2] }} °C; h = {{ result[0][3] }} %; <a href="/buttons/tempdat" class="button">Обновить</a> </h3>
+
+
+
+
+{% endblock %}
